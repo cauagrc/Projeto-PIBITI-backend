@@ -6,10 +6,10 @@ import { InstituicoesModule } from './instituicoes/instituicoes.module';
 import { PermutacoesModule } from './permutacoes/permutacoes.module';
 import { SolicitacoesModule } from './solicitacoes/solicitacoes.module';
 import { ForunsModule } from './foruns/foruns.module';
-
+import { ConversasModule } from './conversas/conversas.module';
 
 @Module({
-  imports: [UsuariosModule,ForunsModule, AutorizacoesModule, InstituicoesModule, PermutacoesModule, SolicitacoesModule, ForunsModule],
+  imports: [UsuariosModule,ForunsModule, AutorizacoesModule, InstituicoesModule, PermutacoesModule, SolicitacoesModule, ForunsModule, ConversasModule],
   providers: [PrismaService],
 })
 export class AppModule {}

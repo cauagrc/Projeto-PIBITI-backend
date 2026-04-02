@@ -100,5 +100,15 @@ export class UsuariosService {
     });
     return user?.imagePerfil ?? null;
   }
-   
+
+  async findUsers(userIDs: number[]) {
+    return this.prisma.usuario.findMany({
+      where: {
+        id: {
+          in: userIDs
+        }
+      }
+    })
+  }
+  
 }
