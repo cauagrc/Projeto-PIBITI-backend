@@ -1,63 +1,80 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsString, IsBoolean, IsOptional } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
-
 export class CreateTopicoDto {
-	
-	@ApiProperty({
+    
+    @ApiProperty({
         description: 'Nome do topico',
         example: 'Como funciona a Permutação'
     })
-	@IsString()
-	nome: string
+    @IsString()
+    nome: string
 
-	@ApiProperty({
+    @ApiProperty({
         description: 'descricao do tipico e que é um comentario',
         example: 'Alguem poderia me explicar sobre a permutação'
     })
-	@IsString()
-	descricao?: string
-	  
-	@ApiProperty({
+    @IsString()
+    @IsOptional()
+    descricao?: string
+      
+    @ApiProperty({
         description: 'categoria do topico',
         example: 'Off-topico'
     })
-	@IsString()
-	categoria: string
+    @IsString()
+    categoria: string
 
-	@ApiProperty({
+    @ApiProperty({
         description: 'ID do usuario que criou o topico',
-        example: '1'
+        example: 1
     })
-	@IsNumber()
-	id_usuario: number
+    @IsNumber()
+    id_usuario: number
 
+    @ApiProperty({
+        description: 'Define se o tópico é anônimo',
+        example: false,
+        required: false
+    })
+    @IsBoolean()
+    @IsOptional()
+    anonimo?: boolean;
 }
 
 export class CreateComentarioDto {
-	
-	@ApiProperty({
+    
+    @ApiProperty({
         description: 'descricao do tipico e que é um comentario',
         example: 'Alguem poderia me explicar sobre a permutação'
     })
-	@IsString()
-	descricao?: string
+    @IsString()
+    @IsOptional()
+    descricao?: string
 
-	@ApiProperty({
-        description: 'ID do usuario que criou o topico',
-        example: '1'
+    @ApiProperty({
+        description: 'ID do usuario que criou o comentário',
+        example: 1
     })
-	@IsNumber()
-	id_usuario: number
-	
-	@ApiProperty({
-        description: 'ID do usuario que criou o topico',
-        example: '1'
+    @IsNumber()
+    id_usuario: number
+    
+    @ApiProperty({
+        description: 'ID do tópico onde o comentário será postado',
+        example: 1
     })
-	@IsNumber()
-	id_topico: number
+    @IsNumber()
+    id_topico: number
 
+    @ApiProperty({
+        description: 'Define se o comentário é anônimo',
+        example: false,
+        required: false
+    })
+    @IsBoolean()
+    @IsOptional()
+    anonimo?: boolean;
 }
 
 export class UpdateComentarioDto extends PartialType(CreateComentarioDto) {}

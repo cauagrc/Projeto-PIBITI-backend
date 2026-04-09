@@ -12,6 +12,7 @@ export class ForunsService {
         data: {
           nome: createForumDto.nome,
           categoria: createForumDto.categoria,
+          anonimo: createForumDto.anonimo ?? false,
           usuario: {
             connect: {
               id: createForumDto.id_usuario,
@@ -31,10 +32,10 @@ export class ForunsService {
         },
       });
 
-      // Criar o primeiro comentário vinculado ao tópico
       await prisma.comentario.create({
         data: {
           descricao: createForumDto.descricao!,
+          anonimo: createForumDto.anonimo ?? false,
           topico: {
             connect: {
               id: topico.id,
@@ -56,6 +57,7 @@ export class ForunsService {
     return await this.prisma.comentario.create({
       data: {
         descricao: createComentarioDto.descricao!,
+        anonimo: createComentarioDto.anonimo ?? false,
         topico: {
           connect: {
             id: createComentarioDto.id_topico,
@@ -94,7 +96,7 @@ export class ForunsService {
           },
         },
         comentarios: {
-          take: 3, // Pegar apenas os 3 primeiros comentários para preview
+          take: 3,
           orderBy: {
             createdAt: 'desc',
           },
@@ -169,6 +171,7 @@ export class ForunsService {
       where: { id: id_comentario },
       data: {
         descricao: updateComentarioDto.descricao,
+        anonimo: updateComentarioDto.anonimo,
         topico: {
           connect: {
             id: id_topico,
