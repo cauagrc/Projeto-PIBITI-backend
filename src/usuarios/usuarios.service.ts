@@ -110,5 +110,23 @@ export class UsuariosService {
       }
     })
   }
+
+  async findAllMessages(id: number) {
+    return this.prisma.usuario.findUnique({
+      where: {id},
+      select: {
+        messages: {
+          include: {
+            author: true,
+            conversation: {
+              include: {
+                users: true
+              }
+            }
+          }
+        }
+      }
+    })
+  }
   
 }
