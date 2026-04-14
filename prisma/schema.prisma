@@ -91,12 +91,13 @@ model message {
   content String?
   read Boolean @default(false)
   edited Boolean @default(false)
-  author_id Int
-  author usuario @relation(fields: [author_id], references: [id])
-  conversation_id Int
-  conversation conversation @relation(fields: [conversation_id], references: [id])
+  author_id Int?
+  author usuario? @relation(fields: [author_id], references: [id], onDelete: SetNull)
+  conversation_id Int?
+  conversation conversation? @relation(fields: [conversation_id], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model conversation {
