@@ -7,9 +7,10 @@ import { PermutacoesModule } from './permutacoes/permutacoes.module';
 import { SolicitacoesModule } from './solicitacoes/solicitacoes.module';
 import { ForunsModule } from './foruns/foruns.module';
 import { ConversasModule } from './conversas/conversas.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
-  imports: [UsuariosModule,ForunsModule, AutorizacoesModule, InstituicoesModule, PermutacoesModule, SolicitacoesModule, ForunsModule, ConversasModule],
+  imports: [UsuariosModule,ForunsModule, AutorizacoesModule, InstituicoesModule, PermutacoesModule, SolicitacoesModule, ForunsModule, ConversasModule, MessagesModule],
   providers: [PrismaService],
 })
 export class AppModule {}
