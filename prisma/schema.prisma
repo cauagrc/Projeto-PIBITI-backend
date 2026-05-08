@@ -25,19 +25,18 @@ model usuario {
   solicitacaoAlvo      solicitacao[]         @relation("solicitacaoAlvo")
   topicos topico[]
   comentarios comentario[]
-  messagesSent message[] @relation("messageSent")
-  messagesRec message[] @relation("messageRec")
-  chats chat[]
+  messages message[]
+  conversas conversation[]
 }
 
 model instituicao {
-  id      Int                  @id
-  nome    String?
+  id        Int                  @id
+  nome      String?
   municipio String?
-  uf      String?
-  sigla   String?
-  usuario instituicaoDestino[]
-  usuarios usuario[]
+  uf        String?
+  sigla     String?
+  usuario   instituicaoDestino[]
+  usuarios  usuario[]
 }
 
 model instituicaoDestino {
@@ -66,44 +65,46 @@ enum status {
 }
 
 model topico {
-  id Int @id @default(autoincrement())
-  nome String
+  id          Int          @id @default(autoincrement())
+  nome        String
   comentarios comentario[]
-  categoria String
-  createdAt            DateTime              @default(now())
-  id_usuario Int
-  usuario       usuario      @relation(fields: [id_usuario], references: [id])
+  categoria   String
+  createdAt   DateTime     @default(now())
+  anonimo     Boolean      @default(false)
+  id_usuario  Int
+  usuario     usuario      @relation(fields: [id_usuario], references: [id])
 }
 
-
-model comentario{
-  id Int @id @default(autoincrement())
+model comentario {
+  id         Int      @id @default(autoincrement())
+  anonimo    Boolean  @default(false)
   id_usuario Int
-  usuario       usuario      @relation(fields: [id_usuario], references: [id])
-  descricao String
-  topico topico @relation(fields:[id_topico], references: [id], onDelete: Cascade)
-  id_topico Int
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @default(now ())
+  usuario    usuario  @relation(fields: [id_usuario], references: [id])
+  descricao  String
+  topico     topico   @relation(fields: [id_topico], references: [id], onDelete: Cascade)
+  id_topico  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
 model message {
   id Int @id @default(autoincrement())
   content String?
-  isRead Boolean? @default(false)
-  authorId Int
-  author usuario @relation("messageSent", fields: [authorId], references: [id])
-  id_usuario Int
-  usuario usuario @relation("messageRec", fields: [id_usuario], references: [id])
-  chatId Int
-  chat chat @relation(fields: [chatId], references: [id])
+  read Boolean @default(false)
+  edited Boolean @default(false)
+  author_id Int?
+  author usuario? @relation(fields: [author_id], references: [id], onDelete: SetNull)
+  conversation_id Int?
+  conversation conversation? @relation(fields: [conversation_id], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
-model chat {
+model conversation {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   users usuario[]
   messages message[]
 }

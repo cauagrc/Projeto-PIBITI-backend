@@ -100,5 +100,33 @@ export class UsuariosService {
     });
     return user?.imagePerfil ?? null;
   }
-   
+
+  async findUsers(userIDs: number[]) {
+    return this.prisma.usuario.findMany({
+      where: {
+        id: {
+          in: userIDs
+        }
+      }
+    })
+  }
+
+  async findAllMessages(id: number) {
+    return this.prisma.usuario.findUnique({
+      where: {id},
+      select: {
+        messages: {
+          include: {
+            author: true,
+            conversation: {
+              include: {
+                users: true
+              }
+            }
+          }
+        }
+      }
+    })
+  }
+  
 }
