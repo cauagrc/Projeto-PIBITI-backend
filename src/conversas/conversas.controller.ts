@@ -1,11 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { ConversasService } from './conversas.service';
 import { CreateConversaDto, UpdateConversaDto } from './conversas.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/autorizacoes/jwt-auth.guard';
 
+@ApiTags('Conversas')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('conversas')
 export class ConversasController {
-  constructor(private readonly conversasService: ConversasService) {}
+  constructor(private readonly conversasService: ConversasService) { }
 
   @ApiOperation({ summary: 'Criar uma conversa entre dois usuários' })
   @Post()
@@ -20,9 +24,9 @@ export class ConversasController {
   }
 
   @ApiOperation({ summary: 'Listar todas as mensagens de uma conversa' })
-  @Get(':id/mensagens')
-  findAllMessages(@Param('id') id: string) {
-    return 'Não realizado ainda';
+  @Get(':id/:userId/mensagens')
+  findAllMessages(@Param('id') id: string, @Param('userId') userId: string, @Query('lastMessageId') lastMessageId?: string) {
+    return this.conversasService.findAllMessages(+userId, +id, lastMessageId ? Number(lastMessageId) : undefined);
   }
 
   @ApiOperation({ summary: 'Obter informações de uma conversa' })
