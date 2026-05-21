@@ -17,7 +17,7 @@ export class AutorizacoesService {
   async signIn(
     email: string,
     pass: string,
-  ): Promise<{ access_token: string; nome: string; id: number; email: string; senha: string }> {
+  ): Promise<{ access_token: string; nome: string; id: number; email: string; }> {
     const usuario = await this.usersService.buscarEmail(email);
    
     if (!usuario) {
@@ -35,7 +35,6 @@ export class AutorizacoesService {
       nome: usuario.nome,
       id: usuario.id,
       email: usuario.email,
-      senha: pass 
     };
   }
 
