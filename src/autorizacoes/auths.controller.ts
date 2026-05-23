@@ -13,7 +13,7 @@ import { AutorizacoesService } from './auths.service';
 import { LoginDto } from './auths.dto';
 import { CreateUserDto } from 'src/usuarios/usuarios.dto';
 import { JwtAuthGuard } from '../autorizacoes/jwt-auth.guard';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 
 
 @Controller('autorizacoes')
@@ -35,6 +35,7 @@ export class AutorizacoesController {
   }
 
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtém o token para o usuário' })
   @Get('me')
   @UseGuards(JwtAuthGuard)

@@ -1,8 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto, UpdateMessageDto } from './messages.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/autorizacoes/jwt-auth.guard';
 
+@ApiTags('Mensagens')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
@@ -32,8 +36,8 @@ export class MessagesController {
   }
 
   @ApiOperation({ summary: "Excluir mensagem do canal" })
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messagesService.remove(+id);
+  @Delete(':id/:userId')
+  remove(@Param('id') id: string, @Param('userId') userId: string) {
+    return this.messagesService.remove(+id, +userId);
   }
 }
