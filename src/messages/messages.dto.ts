@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt } from 'class-validator';
 
 export class CreateMessageDto {
     @ApiProperty({
@@ -31,4 +31,20 @@ export class UpdateMessageDto  {
     })
     @IsString()
     content: string
+}
+
+export class SendMessage {
+    @IsNotEmpty()
+    @IsString()
+    conversationId: string;
+
+    @IsNotEmpty()
+    @IsString()
+    content: string;
+}
+
+export class DeleteMessage {
+    @IsNotEmpty()
+    @IsInt()
+    messageId: number;
 }
