@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2172" height="724" viewBox="0 0 2172 724" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxograma de compatibilidade entre servidores</title>
+  <desc id="desc">Comparar servidores A e B. Se possuem o mesmo cargo, verificar se há interesse recíproco entre as instituições; se sim, possível permuta. Caso contrário, sem compatibilidade.</desc>
+  <defs>
+    <linearGradient id="blueBox" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A416E"/>
+      <stop offset="0.43" stop-color="#07335A"/>
+      <stop offset="1" stop-color="#031C35"/>
+    </linearGradient>
+    <linearGradient id="blueDecision" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07335A"/>
+      <stop offset="1" stop-color="#011526"/>
+    </linearGradient>
+    <linearGradient id="bluePill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#063957"/>
+      <stop offset="1" stop-color="#021727"/>
+    </linearGradient>
+    <!-- Dark outer tracing makes the pale connectors remain visible in GitHub's light mode. -->
+    <marker id="arrow-outline" markerWidth="13" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 1 L 11 7 L 0 13" fill="none" stroke="#073149" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-light" markerWidth="13" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 1 L 11 7 L 0 13" fill="none" stroke="#DDF4FF" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .outline { fill: none; stroke: #073149; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow { fill: none; stroke: #DDF4FF; stroke-width: 3.7; stroke-linecap: round; stroke-linejoin: round; }
+      .block { fill: url(#blueBox); stroke: #06AEFA; stroke-width: 3.5; }
+      .diamond { fill: url(#blueDecision); stroke: #059BE4; stroke-width: 3.5; stroke-linejoin: round; }
+      .pill { fill: url(#bluePill); stroke: #09A8F6; stroke-width: 3.2; }
+      .block-label { fill: #D3EBFF; font: 700 42px Arial, Helvetica, sans-serif; text-anchor: middle; }
+      .decision-label { fill: #D3EBFF; font: 700 40px Arial, Helvetica, sans-serif; text-anchor: middle; }
+      .pill-label { fill: #EAF8FF; font: 700 37px Arial, Helvetica, sans-serif; text-anchor: middle; dominant-baseline: central; }
+    </style>
+  </defs>
+
+  <!-- Connectors behind nodes. No background rectangle: the SVG is transparent. -->
+  <g class="outline">
+    <path d="M 438 330 H 500"/>
+    <path d="M 791 330 H 965"/>
+    <path d="M 1364 330 H 1550"/>
+    <path d="M 648 205 V 136 Q 648 105 682 105 H 1967 Q 2001 105 2001 139 V 467"/>
+    <path d="M 1166 485 V 516 Q 1166 547 1197 547 H 1609"/>
+  </g>
+  <g class="arrow">
+    <path d="M 438 330 H 492" marker-end="url(#arrow-light)"/>
+    <path d="M 791 330 H 957" marker-end="url(#arrow-light)"/>
+    <path d="M 1364 330 H 1542" marker-end="url(#arrow-light)"/>
+    <path d="M 648 205 V 136 Q 648 105 682 105 H 1967 Q 2001 105 2001 139 V 456" marker-end="url(#arrow-light)"/>
+    <path d="M 1166 485 V 516 Q 1166 547 1197 547 H 1600" marker-end="url(#arrow-light)"/>
+  </g>
+
+  <!-- Main workflow blocks -->
+  <rect class="block" x="30" y="248" width="408" height="165" rx="38"/>
+  <polygon class="diamond" points="648,205 791,330 648,457 500,330"/>
+  <polygon class="diamond" points="1166,174 1364,330 1166,485 965,330"/>
+  <rect class="block" x="1550" y="248" width="400" height="164" rx="38"/>
+  <rect class="block" x="1611" y="468" width="468" height="156" rx="37"/>
+
+  <!-- Decision labels, over the connectors -->
+  <rect class="pill" x="821" y="294" width="100" height="73" rx="37"/>
+  <rect class="pill" x="1394" y="294" width="106" height="73" rx="37"/>
+  <rect class="pill" x="1124" y="68" width="128" height="74" rx="37"/>
+  <rect class="pill" x="1324" y="508" width="128" height="74" rx="37"/>
+
+  <!-- Text is live SVG text and stays crisp at any zoom -->
+  <text class="block-label" x="234" y="315">
+    <tspan x="234">Comparar</tspan>
+    <tspan x="234" dy="52">servidores A e B</tspan>
+  </text>
+  <text class="decision-label" x="648" y="314">
+    <tspan x="648">Mesmo</tspan>
+    <tspan x="648" dy="49">cargo?</tspan>
+  </text>
+  <text class="decision-label" x="1166" y="290" style="font-size:37px">
+    <tspan x="1166">Interesse</tspan>
+    <tspan x="1166" dy="47">recíproco entre</tspan>
+    <tspan x="1166" dy="47">as instituições?</tspan>
+  </text>
+  <text class="block-label" x="1750" y="313">
+    <tspan x="1750">Possível</tspan>
+    <tspan x="1750" dy="54">permuta</tspan>
+  </text>
+  <text class="block-label" x="1845" y="532">
+    <tspan x="1845">Sem</tspan>
+    <tspan x="1845" dy="54">compatibilidade</tspan>
+  </text>
+  <text class="pill-label" x="871" y="331">Sim</text>
+  <text class="pill-label" x="1447" y="331">Sim</text>
+  <text class="pill-label" x="1188" y="105">Não</text>
+  <text class="pill-label" x="1388" y="545">Não</text>
+</svg>
